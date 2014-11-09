@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.vm.box = "ubuntu/trusty64"
+
+    num_cpus              = ENV['VAGRANTMANAGER_CPU']
+    mem_size              = ENV['VAGRANTMANAGER_MEM']
+
+    config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", mem_size ? mem_size : 2000]
+        vb.customize ["modifyvm", :id, "--cpus",  num_cpus ? num_cpus : 2]
+    end
+
+    config.vm.network "private_network", ip: "192.168.50.4"
+    #config.vm.network "forwarded_port", guest: 9000, host: 8080
+
+    # mount project
+    project_dir = File.expand_path("../../project/")
+    config.vm.synced_folder project_dir, "/opt/node-project", owner: 'vagrant'
+
+    config.vm.provision "shell" do |s|
+        s.path = "startup.sh"
+    end
+
+end
