@@ -11,7 +11,7 @@ A simple vagrant setup for local Angular development w/ Node.js
 ## Getting Started
 * From a terminal, navigate to the `boxes/local` folder and execute `vagrant up`.  This will will create an Ubuntu VM w/ some minimal dependencies installed for Node.js development.
 
-* The Vagrant VM is defaulted to 2 GB of RAM.  If you have more RAM available I recommend bumping this number up to make things more snappy.
+* The Vagrant VM is defaulted to 2 GB of RAM.  If you have more RAM available I recommend bumping this number up to make things more snappy.  This can be set within `boxes/local/Vagrantfile`
 
 * After VM has been created run `vagrant ssh` to login to newly created VM.
 
